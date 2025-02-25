@@ -1,4 +1,5 @@
 .vs/
+build/
 Freakmon.vcxproj.filters
 Freakmon.vcxproj.user
 Freakmon.vcxproj
