@@ -40,14 +40,20 @@ public:
     void processKeyboard(CameraMovement direction, float deltaTime)
     {
         float cameraSpeed = m_movementSpeed * deltaTime;
+        glm::vec3 moveDirection = glm::vec3(0.0f);
+
         if (direction == forward)
-            m_position += m_front * cameraSpeed;
+            moveDirection += m_front;
         if (direction == backward)
-            m_position -= m_front * cameraSpeed;
+            moveDirection -= m_front;
         if (direction == right)
-            m_position += m_right * cameraSpeed;
+            moveDirection += m_right;
         if (direction == left)
-            m_position -= m_right * cameraSpeed;
+            moveDirection -= m_right;
+
+        moveDirection.y = 0.0f;
+
+        m_position += glm::normalize(moveDirection) * cameraSpeed;
     }
 
     void processMouseMovement(float xoffset, float yoffset)
@@ -66,6 +72,28 @@ public:
         updateCameraVectors();
     }
 
+    void jump()
+    {
+        if (!m_isJumping) {
+            m_isJumping = true;
+            m_jumpVelocity = m_jumpStrength;
+        }
+    }
+
+    void updateJump(float deltaTime)
+    {
+        if (m_isJumping) {
+            m_jumpVelocity += m_gravity * deltaTime;
+            m_position.y += m_jumpVelocity * deltaTime;
+
+            if (m_position.y <= 2.0f) {
+                m_position.y = 2.0f;
+                m_isJumping = false;
+                m_jumpVelocity = 0.0f;
+            }
+        }
+    }
+
 private:
     glm::vec3 m_position{};
     glm::vec3 m_front{ glm::vec3(0.0f, 0.0f, -1.0f) };
@@ -79,6 +107,11 @@ private:
     float m_movementSpeed{ 2.5f };
     float m_sensitivity{ 0.1f };
     float m_fov{ 45.0f };
+
+    bool m_isJumping{ false };
+    float m_jumpVelocity{ 0.0f };
+    const float m_gravity{ -9.81f };
+    const float m_jumpStrength{ 5.0f };
 
     void updateCameraVectors()
     {

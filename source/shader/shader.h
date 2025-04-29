@@ -14,6 +14,8 @@
 class Shader
 {
 public:
+	unsigned int shaderProgram{};
+
 	Shader(const char* vertexPath, const char* fragmentPath)
 	{
 		std::string vertexCode{};
@@ -126,8 +128,6 @@ public:
 	}
 
 private:
-	unsigned int shaderProgram{};
-
 	void checkCompileErrors(unsigned int shader, std::string type)
 	{
 		int success{};

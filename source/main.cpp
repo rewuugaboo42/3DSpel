@@ -17,7 +17,7 @@ constexpr int SCREEN_HEIGHT{ 960 };
 float deltaTime{ 0.0f };
 float lastFrame{ 0.0f };
 
-Camera camera{ glm::vec3(0.0f, 0.0f, 3.0f) };
+Camera camera{ glm::vec3(0.0f, 2.0f, 0.0f) };
 float lastX{ SCREEN_WIDTH / 2.0f };
 float lastY{ SCREEN_HEIGHT / 2.0f };
 bool firstMouse{ true };
@@ -106,23 +106,289 @@ int main()
 	};
 
 	glm::vec3 cubePositions[] = {
-		glm::vec3(0.0f,  0.0f,  0.0f),
-		glm::vec3(2.0f,  5.0f, -15.0f),
-		glm::vec3(-1.5f, -2.2f, -2.5f),
-		glm::vec3(-3.8f, -2.0f, -12.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
-		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
-		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
+		glm::vec3(0.0f,  0.0f, 0.0f),
+		glm::vec3(1.0f,  0.0f, 0.0f),
+		glm::vec3(2.0f,  0.0f, 0.0f),
+		glm::vec3(3.0f,  0.0f, 0.0f),
+		glm::vec3(4.0f,  0.0f, 0.0f),
+		glm::vec3(5.0f,  0.0f, 0.0f),
+		glm::vec3(6.0f,  0.0f, 0.0f),
+		glm::vec3(7.0f,  0.0f, 0.0f),
+		glm::vec3(-1.0f,  0.0f, 0.0f),
+		glm::vec3(-2.0f,  0.0f, 0.0f),
+		glm::vec3(-3.0f,  0.0f, 0.0f),
+		glm::vec3(-4.0f,  0.0f, 0.0f),
+		glm::vec3(-5.0f,  0.0f, 0.0f),
+		glm::vec3(-6.0f,  0.0f, 0.0f),
+		glm::vec3(-7.0f,  0.0f, 0.0f),
+		glm::vec3(-8.0f,  0.0f, 0.0f),
+		glm::vec3(0.0f,  0.0f, 1.0f),
+		glm::vec3(1.0f,  0.0f, 1.0f),
+		glm::vec3(2.0f,  0.0f, 1.0f),
+		glm::vec3(3.0f,  0.0f, 1.0f),
+		glm::vec3(4.0f,  0.0f, 1.0f),
+		glm::vec3(5.0f,  0.0f, 1.0f),
+		glm::vec3(6.0f,  0.0f, 1.0f),
+		glm::vec3(7.0f,  0.0f, 1.0f),
+		glm::vec3(-1.0f,  0.0f, 1.0f),
+		glm::vec3(-2.0f,  0.0f, 1.0f),
+		glm::vec3(-3.0f,  0.0f, 1.0f),
+		glm::vec3(-4.0f,  0.0f, 1.0f),
+		glm::vec3(-5.0f,  0.0f, 1.0f),
+		glm::vec3(-6.0f,  0.0f, 1.0f),
+		glm::vec3(-7.0f,  0.0f, 1.0f),
+		glm::vec3(-8.0f,  0.0f, 1.0f),
+		glm::vec3(0.0f,  0.0f, 2.0f),
+		glm::vec3(1.0f,  0.0f, 2.0f),
+		glm::vec3(2.0f,  0.0f, 2.0f),
+		glm::vec3(3.0f,  0.0f, 2.0f),
+		glm::vec3(4.0f,  0.0f, 2.0f),
+		glm::vec3(5.0f,  0.0f, 2.0f),
+		glm::vec3(6.0f,  0.0f, 2.0f),
+		glm::vec3(7.0f,  0.0f, 2.0f),
+		glm::vec3(-1.0f,  0.0f, 2.0f),
+		glm::vec3(-2.0f,  0.0f, 2.0f),
+		glm::vec3(-3.0f,  0.0f, 2.0f),
+		glm::vec3(-4.0f,  0.0f, 2.0f),
+		glm::vec3(-5.0f,  0.0f, 2.0f),
+		glm::vec3(-6.0f,  0.0f, 2.0f),
+		glm::vec3(-7.0f,  0.0f, 2.0f),
+		glm::vec3(-8.0f,  0.0f, 2.0f),
+		glm::vec3(0.0f,  0.0f, 3.0f),
+		glm::vec3(1.0f,  0.0f, 3.0f),
+		glm::vec3(2.0f,  0.0f, 3.0f),
+		glm::vec3(3.0f,  0.0f, 3.0f),
+		glm::vec3(4.0f,  0.0f, 3.0f),
+		glm::vec3(5.0f,  0.0f, 3.0f),
+		glm::vec3(6.0f,  0.0f, 3.0f),
+		glm::vec3(7.0f,  0.0f, 3.0f),
+		glm::vec3(-1.0f,  0.0f, 3.0f),
+		glm::vec3(-2.0f,  0.0f, 3.0f),
+		glm::vec3(-3.0f,  0.0f, 3.0f),
+		glm::vec3(-4.0f,  0.0f, 3.0f),
+		glm::vec3(-5.0f,  0.0f, 3.0f),
+		glm::vec3(-6.0f,  0.0f, 3.0f),
+		glm::vec3(-7.0f,  0.0f, 3.0f),
+		glm::vec3(-8.0f,  0.0f, 3.0f),
+		glm::vec3(0.0f,  0.0f, 4.0f),
+		glm::vec3(1.0f,  0.0f, 4.0f),
+		glm::vec3(2.0f,  0.0f, 4.0f),
+		glm::vec3(3.0f,  0.0f, 4.0f),
+		glm::vec3(4.0f,  0.0f, 4.0f),
+		glm::vec3(5.0f,  0.0f, 4.0f),
+		glm::vec3(6.0f,  0.0f, 4.0f),
+		glm::vec3(7.0f,  0.0f, 4.0f),
+		glm::vec3(-1.0f,  0.0f, 4.0f),
+		glm::vec3(-2.0f,  0.0f, 4.0f),
+		glm::vec3(-3.0f,  0.0f, 4.0f),
+		glm::vec3(-4.0f,  0.0f, 4.0f),
+		glm::vec3(-5.0f,  0.0f, 4.0f),
+		glm::vec3(-6.0f,  0.0f, 4.0f),
+		glm::vec3(-7.0f,  0.0f, 4.0f),
+		glm::vec3(-8.0f,  0.0f, 4.0f),
+		glm::vec3(0.0f,  0.0f, 5.0f),
+		glm::vec3(1.0f,  0.0f, 5.0f),
+		glm::vec3(2.0f,  0.0f, 5.0f),
+		glm::vec3(3.0f,  0.0f, 5.0f),
+		glm::vec3(4.0f,  0.0f, 5.0f),
+		glm::vec3(5.0f,  0.0f, 5.0f),
+		glm::vec3(6.0f,  0.0f, 5.0f),
+		glm::vec3(7.0f,  0.0f, 5.0f),
+		glm::vec3(-1.0f,  0.0f, 5.0f),
+		glm::vec3(-2.0f,  0.0f, 5.0f),
+		glm::vec3(-3.0f,  0.0f, 5.0f),
+		glm::vec3(-4.0f,  0.0f, 5.0f),
+		glm::vec3(-5.0f,  0.0f, 5.0f),
+		glm::vec3(-6.0f,  0.0f, 5.0f),
+		glm::vec3(-7.0f,  0.0f, 5.0f),
+		glm::vec3(-8.0f,  0.0f, 5.0f),
+		glm::vec3(0.0f,  0.0f, 6.0f),
+		glm::vec3(1.0f,  0.0f, 6.0f),
+		glm::vec3(2.0f,  0.0f, 6.0f),
+		glm::vec3(3.0f,  0.0f, 6.0f),
+		glm::vec3(4.0f,  0.0f, 6.0f),
+		glm::vec3(5.0f,  0.0f, 6.0f),
+		glm::vec3(6.0f,  0.0f, 6.0f),
+		glm::vec3(7.0f,  0.0f, 6.0f),
+		glm::vec3(-1.0f,  0.0f, 6.0f),
+		glm::vec3(-2.0f,  0.0f, 6.0f),
+		glm::vec3(-3.0f,  0.0f, 6.0f),
+		glm::vec3(-4.0f,  0.0f, 6.0f),
+		glm::vec3(-5.0f,  0.0f, 6.0f),
+		glm::vec3(-6.0f,  0.0f, 6.0f),
+		glm::vec3(-7.0f,  0.0f, 6.0f),
+		glm::vec3(-8.0f,  0.0f, 6.0f),
+		glm::vec3(0.0f, 0.0f, 7.0f),
+		glm::vec3(1.0f, 0.0f, 7.0f),
+		glm::vec3(2.0f, 0.0f, 7.0f),
+		glm::vec3(3.0f, 0.0f, 7.0f),
+		glm::vec3(4.0f, 0.0f, 7.0f),
+		glm::vec3(5.0f, 0.0f, 7.0f),
+		glm::vec3(6.0f, 0.0f, 7.0f),
+		glm::vec3(7.0f, 0.0f, 7.0f),
+		glm::vec3(-1.0f, 0.0f, 7.0f),
+		glm::vec3(-2.0f, 0.0f, 7.0f),
+		glm::vec3(-3.0f, 0.0f, 7.0f),
+		glm::vec3(-4.0f, 0.0f, 7.0f),
+		glm::vec3(-5.0f, 0.0f, 7.0f),
+		glm::vec3(-6.0f, 0.0f, 7.0f),
+		glm::vec3(-7.0f, 0.0f, 7.0f),
+		glm::vec3(-8.0f, 0.0f, 7.0f),
+		glm::vec3(0.0f, 0.0f, -1.0f),
+		glm::vec3(1.0f, 0.0f, -1.0f),
+		glm::vec3(2.0f, 0.0f, -1.0f),
+		glm::vec3(3.0f, 0.0f, -1.0f),
+		glm::vec3(4.0f, 0.0f, -1.0f),
+		glm::vec3(5.0f, 0.0f, -1.0f),
+		glm::vec3(6.0f, 0.0f, -1.0f),
+		glm::vec3(7.0f, 0.0f, -1.0f),
+		glm::vec3(-1.0f, 0.0f, -1.0f),
+		glm::vec3(-2.0f, 0.0f, -1.0f),
+		glm::vec3(-3.0f, 0.0f, -1.0f),
+		glm::vec3(-4.0f, 0.0f, -1.0f),
+		glm::vec3(-5.0f, 0.0f, -1.0f),
+		glm::vec3(-6.0f, 0.0f, -1.0f),
+		glm::vec3(-7.0f, 0.0f, -1.0f),
+		glm::vec3(-8.0f, 0.0f, -1.0f),
+		glm::vec3(0.0f, 0.0f, -2.0f),
+		glm::vec3(1.0f, 0.0f, -2.0f),
+		glm::vec3(2.0f, 0.0f, -2.0f),
+		glm::vec3(3.0f, 0.0f, -2.0f),
+		glm::vec3(4.0f, 0.0f, -2.0f),
+		glm::vec3(5.0f, 0.0f, -2.0f),
+		glm::vec3(6.0f, 0.0f, -2.0f),
+		glm::vec3(7.0f, 0.0f, -2.0f),
+		glm::vec3(-1.0f, 0.0f, -2.0f),
+		glm::vec3(-2.0f, 0.0f, -2.0f),
+		glm::vec3(-3.0f, 0.0f, -2.0f),
+		glm::vec3(-4.0f, 0.0f, -2.0f),
+		glm::vec3(-5.0f, 0.0f, -2.0f),
+		glm::vec3(-6.0f, 0.0f, -2.0f),
+		glm::vec3(-7.0f, 0.0f, -2.0f),
+		glm::vec3(-8.0f, 0.0f, -2.0f),
+		glm::vec3(0.0f, 0.0f, -3.0f),
+		glm::vec3(1.0f, 0.0f, -3.0f),
+		glm::vec3(2.0f, 0.0f, -3.0f),
+		glm::vec3(3.0f, 0.0f, -3.0f),
+		glm::vec3(4.0f, 0.0f, -3.0f),
+		glm::vec3(5.0f, 0.0f, -3.0f),
+		glm::vec3(6.0f, 0.0f, -3.0f),
+		glm::vec3(7.0f, 0.0f, -3.0f),
+		glm::vec3(-1.0f, 0.0f, -3.0f),
+		glm::vec3(-2.0f, 0.0f, -3.0f),
+		glm::vec3(-3.0f, 0.0f, -3.0f),
+		glm::vec3(-4.0f, 0.0f, -3.0f),
+		glm::vec3(-5.0f, 0.0f, -3.0f),
+		glm::vec3(-6.0f, 0.0f, -3.0f),
+		glm::vec3(-7.0f, 0.0f, -3.0f),
+		glm::vec3(-8.0f, 0.0f, -3.0f),
+		glm::vec3(0.0f, 0.0f, -4.0f),
+		glm::vec3(1.0f, 0.0f, -4.0f),
+		glm::vec3(2.0f, 0.0f, -4.0f),
+		glm::vec3(3.0f, 0.0f, -4.0f),
+		glm::vec3(4.0f, 0.0f, -4.0f),
+		glm::vec3(5.0f, 0.0f, -4.0f),
+		glm::vec3(6.0f, 0.0f, -4.0f),
+		glm::vec3(7.0f, 0.0f, -4.0f),
+		glm::vec3(-1.0f, 0.0f, -4.0f),
+		glm::vec3(-2.0f, 0.0f, -4.0f),
+		glm::vec3(-3.0f, 0.0f, -4.0f),
+		glm::vec3(-4.0f, 0.0f, -4.0f),
+		glm::vec3(-5.0f, 0.0f, -4.0f),
+		glm::vec3(-6.0f, 0.0f, -4.0f),
+		glm::vec3(-7.0f, 0.0f, -4.0f),
+		glm::vec3(-8.0f, 0.0f, -4.0f),
+		glm::vec3(0.0f, 0.0f, -5.0f),
+		glm::vec3(1.0f, 0.0f, -5.0f),
+		glm::vec3(2.0f, 0.0f, -5.0f),
+		glm::vec3(3.0f, 0.0f, -5.0f),
+		glm::vec3(4.0f, 0.0f, -5.0f),
+		glm::vec3(5.0f, 0.0f, -5.0f),
+		glm::vec3(6.0f, 0.0f, -5.0f),
+		glm::vec3(7.0f, 0.0f, -5.0f),
+		glm::vec3(-1.0f, 0.0f, -5.0f),
+		glm::vec3(-2.0f, 0.0f, -5.0f),
+		glm::vec3(-3.0f, 0.0f, -5.0f),
+		glm::vec3(-4.0f, 0.0f, -5.0f),
+		glm::vec3(-5.0f, 0.0f, -5.0f),
+		glm::vec3(-6.0f, 0.0f, -5.0f),
+		glm::vec3(-7.0f, 0.0f, -5.0f),
+		glm::vec3(-8.0f, 0.0f, -5.0f),
+		glm::vec3(0.0f, 0.0f, -6.0f),
+		glm::vec3(1.0f, 0.0f, -6.0f),
+		glm::vec3(2.0f, 0.0f, -6.0f),
+		glm::vec3(3.0f, 0.0f, -6.0f),
+		glm::vec3(4.0f, 0.0f, -6.0f),
+		glm::vec3(5.0f, 0.0f, -6.0f),
+		glm::vec3(6.0f, 0.0f, -6.0f),
+		glm::vec3(7.0f, 0.0f, -6.0f),
+		glm::vec3(-1.0f, 0.0f, -6.0f),
+		glm::vec3(-2.0f, 0.0f, -6.0f),
+		glm::vec3(-3.0f, 0.0f, -6.0f),
+		glm::vec3(-4.0f, 0.0f, -6.0f),
+		glm::vec3(-5.0f, 0.0f, -6.0f),
+		glm::vec3(-6.0f, 0.0f, -6.0f),
+		glm::vec3(-7.0f, 0.0f, -6.0f),
+		glm::vec3(-8.0f, 0.0f, -6.0f),
+		glm::vec3(0.0f, 0.0f, -7.0f),
+		glm::vec3(1.0f, 0.0f, -7.0f),
+		glm::vec3(2.0f, 0.0f, -7.0f),
+		glm::vec3(3.0f, 0.0f, -7.0f),
+		glm::vec3(4.0f, 0.0f, -7.0f),
+		glm::vec3(5.0f, 0.0f, -7.0f),
+		glm::vec3(6.0f, 0.0f, -7.0f),
+		glm::vec3(7.0f, 0.0f, -7.0f),
+		glm::vec3(-1.0f, 0.0f, -7.0f),
+		glm::vec3(-2.0f, 0.0f, -7.0f),
+		glm::vec3(-3.0f, 0.0f, -7.0f),
+		glm::vec3(-4.0f, 0.0f, -7.0f),
+		glm::vec3(-5.0f, 0.0f, -7.0f),
+		glm::vec3(-6.0f, 0.0f, -7.0f),
+		glm::vec3(-7.0f, 0.0f, -7.0f),
+		glm::vec3(-8.0f, 0.0f, -7.0f),
+		glm::vec3(0.0f, 0.0f, -8.0f),
+		glm::vec3(1.0f, 0.0f, -8.0f),
+		glm::vec3(2.0f, 0.0f, -8.0f),
+		glm::vec3(3.0f, 0.0f, -8.0f),
+		glm::vec3(4.0f, 0.0f, -8.0f),
+		glm::vec3(5.0f, 0.0f, -8.0f),
+		glm::vec3(6.0f, 0.0f, -8.0f),
+		glm::vec3(7.0f, 0.0f, -8.0f),
+		glm::vec3(-1.0f, 0.0f, -8.0f),
+		glm::vec3(-2.0f, 0.0f, -8.0f),
+		glm::vec3(-3.0f, 0.0f, -8.0f),
+		glm::vec3(-4.0f, 0.0f, -8.0f),
+		glm::vec3(-5.0f, 0.0f, -8.0f),
+		glm::vec3(-6.0f, 0.0f, -8.0f),
+		glm::vec3(-7.0f, 0.0f, -8.0f),
+		glm::vec3(-8.0f, 0.0f, -8.0f),
+	};
+
+	glm::vec3 lavaCubePositions[]
+	{
+		glm::vec3(0.0f, 0.0f, -9.0f),
+		glm::vec3(1.0f, 0.0f, -9.0f),
+		glm::vec3(2.0f, 0.0f, -9.0f),
+		glm::vec3(3.0f, 0.0f, -9.0f),
+		glm::vec3(4.0f, 0.0f, -9.0f),
+		glm::vec3(5.0f, 0.0f, -9.0f),
+		glm::vec3(6.0f, 0.0f, -9.0f),
+		glm::vec3(7.0f, 0.0f, -9.0f),
+		glm::vec3(-1.0f, 0.0f, -9.0f),
+		glm::vec3(-2.0f, 0.0f, -9.0f),
+		glm::vec3(-3.0f, 0.0f, -9.0f),
+		glm::vec3(-4.0f, 0.0f, -9.0f),
+		glm::vec3(-5.0f, 0.0f, -9.0f),
+		glm::vec3(-6.0f, 0.0f, -9.0f),
+		glm::vec3(-7.0f, 0.0f, -9.0f),
+		glm::vec3(-8.0f, 0.0f, -9.0f),
 	};
 
 	glm::vec3 pointLightPositions[] = {
-		glm::vec3(0.7f,  0.2f,  2.0f),
-		glm::vec3(2.3f, -3.3f, -4.0f),
-		glm::vec3(-4.0f,  2.0f, -12.0f),
-		glm::vec3(0.0f,  0.0f, -3.0f)
+		glm::vec3(0.7f,  2.2f,  2.0f),
+		glm::vec3(2.3f, 3.3f, -4.0f),
+		glm::vec3(-4.0f,  2.0f, 9.0f),
+		glm::vec3(0.0f,  3.0f, -3.0f)
 	};
 
 	float skyboxVertices[] =
@@ -244,8 +510,19 @@ int main()
 		}
 	}
 
-	unsigned int diffuseMap{ loadTexture("resource/texture/container2.png") };
-	unsigned int specularMap{ loadTexture("resource/texture/container2_specular.png") };
+	unsigned int diffuseMap{ loadTexture("resource/texture/grass.jpg") };
+	unsigned int specularMap{ loadTexture("resource/texture/grass_specular.jpg") };
+	unsigned int lavaDiffuseMap{ loadTexture("resource/texture/lava.jpg") };
+	unsigned int lavaSpecularMap{ loadTexture("resource/texture/lava_specular.jpg") };
+
+	/*unsigned int grassDiffuse = loadTexture("resource/texture/grass.jpg");
+	unsigned int grassSpecular = loadTexture("resource/texture/grass_specular.jpg");
+
+	unsigned int blockDiffuse = loadTexture("resource/texture/grass_block.jpg");
+	unsigned int blockSpecular = loadTexture("resource/texture/grass_block_specular.jpg");
+
+	unsigned int dirtDiffuse = loadTexture("resource/texture/dirt.jpg");
+	unsigned int dirtSpecular = loadTexture("resource/texture/dirt_specular.jpg");*/
 
 	lightingShader.use();
 	lightingShader.setInt("material.diffuse", 0);
@@ -262,6 +539,8 @@ int main()
 		lastFrame = currentFrame;
 
 		processInput(window);
+
+		camera.updateJump(deltaTime);
 
 		glClearColor(0.2f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -331,16 +610,24 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, specularMap);
 
 		glBindVertexArray(cubeVAO);
-		for (unsigned int i = 0; i < 10; i++)
+		for (unsigned int i = 0; i < 256; i++)
 		{
 			glm::mat4 model{ glm::mat4(1.0f) };
 			model = glm::translate(model, cubePositions[i]);
-			float angle = 20.0f * i;
-			if (i % 3 == 0)
-			{
-				angle = (float)glfwGetTime() * 25.0f;
-			}
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			lightingShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, lavaDiffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, lavaSpecularMap);
+
+		for (unsigned int i = 0; i < 16; ++i)
+		{
+			glm::mat4 model{ glm::mat4(1.0f) };
+			model = glm::translate(model, lavaCubePositions[i]);
 			lightingShader.setMat4("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -403,6 +690,8 @@ void processInput(GLFWwindow* window)
 		camera.processKeyboard(right, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		camera.processKeyboard(left, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		camera.jump();
 }
 
 void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
