@@ -1,3 +1,11 @@
+/*
+* File: shader.h
+* Author: Simon Olesen
+* Date: 2025-05-13
+* Description: This program links a vertex shader and fragment shader to a shader program
+			   by loading from file and defines functions to bind it when needed
+*/
+
 #ifndef SHADER_H
 #define SHADER_H
 
@@ -16,6 +24,13 @@ class Shader
 public:
 	unsigned int shaderProgram{};
 
+	/*
+	* Loads and compiles vertex and fragment shaders and links them into a shader program
+	* Parameters:
+	* - vertexPath: Char pointer to the vertex shader file path
+	* - fragmentPath: Char pointer to the fragment shader file path
+	* Returns: Shader object containing a bindable shader program
+	*/
 	Shader(const char* vertexPath, const char* fragmentPath)
 	{
 		std::string vertexCode{};
@@ -26,6 +41,7 @@ public:
 		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 		try
 		{
+			// Read shader files into streams
 			vShaderFile.open(vertexPath);
 			fShaderFile.open(fragmentPath);
 			std::stringstream vShaderStream{};
@@ -45,16 +61,19 @@ public:
 		const char* vShaderCode{ vertexCode.c_str() };
 		const char* fShaderCode{ fragmentCode.c_str() };
 
+		// Compile vertex shader
 		unsigned int vertexShader{ glCreateShader(GL_VERTEX_SHADER) };
 		glShaderSource(vertexShader, 1, &vShaderCode, NULL);
 		glCompileShader(vertexShader);
 		checkCompileErrors(vertexShader, "VERTEX");
 
+		// Compile fragment shader
 		unsigned int fragmentShader{ glCreateShader(GL_FRAGMENT_SHADER) };
 		glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
 		glCompileShader(fragmentShader);
 		checkCompileErrors(fragmentShader, "FRAGMENT");
 
+		// Link shaders into a program
 		shaderProgram = glCreateProgram();
 		glAttachShader(shaderProgram, vertexShader);
 		glAttachShader(shaderProgram, fragmentShader);
@@ -65,6 +84,11 @@ public:
 		glDeleteShader(fragmentShader);
 	}
 
+	/*
+	* Activates the shader program for use in rendering
+	* Parameters: None
+	* Returns: void
+	*/
 	void use()
 	{
 		glUseProgram(shaderProgram);
@@ -128,6 +152,13 @@ public:
 	}
 
 private:
+	/*
+	* Checks and prints compile or linking errors for shaders
+	* Parameters:
+	* - shader: ID of the shader or program
+	* - type: String indicating "VERTEX", "FRAGMENT", or "PROGRAM"
+	* Returns: void
+	*/
 	void checkCompileErrors(unsigned int shader, std::string type)
 	{
 		int success{};

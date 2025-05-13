@@ -1,3 +1,10 @@
+/*
+* File: main.cpp
+* Author: Simon Olesen
+* Date: 2025-05-13
+* Description: The program entry point for a 3D graphics engine
+*/
+
 #include "camera/camera.h"
 #include "shader/shader.h"
 
@@ -384,6 +391,20 @@ int main()
 		glm::vec3(-8.0f, 0.0f, -9.0f),
 	};
 
+	glm::vec3 snowManPositions[] {
+		glm::vec3(-3.0f, 1.0f, -6.0f),
+		glm::vec3(-3.0f, 2.0f, -6.0f),
+		glm::vec3(-3.0f, 3.0f, -6.0f),
+	};
+
+	glm::vec3 ironGolemPositions[]{
+		glm::vec3(1.0f,  1.0f, 5.0f),
+		glm::vec3(1.0f,  2.0f, 5.0f),
+		glm::vec3(2.0f,  2.0f, 5.0f),
+		glm::vec3(0.0f,  2.0f, 5.0f),
+		glm::vec3(1.0f,  3.0f, 5.0f),
+	};
+
 	glm::vec3 pointLightPositions[] = {
 		glm::vec3(0.7f,  2.2f,  2.0f),
 		glm::vec3(2.3f, 3.3f, -4.0f),
@@ -514,6 +535,12 @@ int main()
 	unsigned int specularMap{ loadTexture("resource/texture/grass_specular.jpg") };
 	unsigned int lavaDiffuseMap{ loadTexture("resource/texture/lava.jpg") };
 	unsigned int lavaSpecularMap{ loadTexture("resource/texture/lava_specular.jpg") };
+	unsigned int snowDiffuseMap{ loadTexture("resource/texture/snow.jpg") };
+	unsigned int snowSpecularMap{ loadTexture("resource/texture/snow_specular.jpg") };
+	unsigned int pumpkinDiffuseMap{ loadTexture("resource/texture/pumpkin.jpg") };
+	unsigned int pumpkinSpecularMap{ loadTexture("resource/texture/pumpkin_specular.jpg") };
+	unsigned int ironDiffuseMap{ loadTexture("resource/texture/iron.jpg") };
+	unsigned int ironSpecularMap{ loadTexture("resource/texture/iron_specular.jpg") };
 
 	/*unsigned int grassDiffuse = loadTexture("resource/texture/grass.jpg");
 	unsigned int grassSpecular = loadTexture("resource/texture/grass_specular.jpg");
@@ -633,6 +660,62 @@ int main()
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, snowDiffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, snowSpecularMap);
+
+		for (unsigned int i = 0; i < 2; ++i)
+		{
+			glm::mat4 model{ glm::mat4(1.0f) };
+			model = glm::translate(model, snowManPositions[i]);
+			lightingShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, pumpkinDiffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, pumpkinSpecularMap);
+
+		for (unsigned int i = 2; i < 3; ++i)
+		{
+			glm::mat4 model{ glm::mat4(1.0f) };
+			model = glm::translate(model, snowManPositions[i]);
+			lightingShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, ironDiffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, ironSpecularMap);
+
+		for (unsigned int i = 0; i < 4; ++i)
+		{
+			glm::mat4 model{ glm::mat4(1.0f) };
+			model = glm::translate(model, ironGolemPositions[i]);
+			lightingShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, pumpkinDiffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, pumpkinSpecularMap);
+
+		for (unsigned int i = 4; i < 5; ++i)
+		{
+			glm::mat4 model{ glm::mat4(1.0f) };
+			model = glm::translate(model, ironGolemPositions[i]);
+			lightingShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
 		glDepthFunc(GL_LEQUAL);
 
 		skyboxShader.use();
@@ -672,11 +755,25 @@ int main()
 	return 0;
 }
 
+/*
+* Callback to resize the viewport when the window is resized
+* Parameters:
+* - window: Pointer to the GLFW window
+* - width: New width of the window in pixels
+* - height: New height of the window in pixels
+* Returns: void
+*/
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
 
+/*
+* Handles keyboard input to control camera movement and exit
+* Parameters:
+* - window: Pointer to the GLFW window
+* Returns: void
+*/
 void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -694,6 +791,14 @@ void processInput(GLFWwindow* window)
 		camera.jump();
 }
 
+/*
+* Callback to process mouse movement and update camera orientation
+* Parameters:
+* - window: Pointer to the GLFW window
+* - xpos: New x-coordinate of the mouse cursor
+* - ypos: New y-coordinate of the mouse cursor
+* Returns: void
+*/
 void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
 {
 	float xpos = static_cast<float>(xPosIn);
@@ -714,6 +819,12 @@ void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
 	camera.processMouseMovement(xoffset, yoffset);
 }
 
+/*
+* Loads a 2D texture from a file using stb_image
+* Parameters:
+* - path: Char pointer to the path of the image file
+* Returns: OpenGL texture ID (unsigned int)
+*/
 unsigned int loadTexture(const char* path)
 {
 	unsigned int texture{};

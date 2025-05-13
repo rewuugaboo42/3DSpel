@@ -1,12 +1,14 @@
 #version 330 core
 out vec4 FragColor;
 
+// Contains textures and shininess factor for lighting calculations
 struct Material {
     sampler2D diffuse;
     sampler2D specular;
     float shininess;
 }; 
 
+// Represents a light source that shines in one direction (like the sun)
 struct DirLight {
     vec3 direction;
 	
@@ -15,6 +17,7 @@ struct DirLight {
     vec3 specular;
 };
 
+// Represents a point light that emits light in all directions from a single point
 struct PointLight {
     vec3 position;
     
@@ -27,6 +30,7 @@ struct PointLight {
     vec3 specular;
 };
 
+// Represents a light source that emits a cone-shaped beam (like a flashlight)
 struct SpotLight {
     vec3 position;
     vec3 direction;
@@ -61,6 +65,8 @@ vec3 calcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 void main()
 {    
     vec3 norm = normalize(Normal);
+
+    // Calculate direction from fragment to viewer
     vec3 viewDir = normalize(viewPos - FragPos);
 
     vec3 result = calcDirLight(dirLight, norm, viewDir);

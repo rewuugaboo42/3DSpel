@@ -1,9 +1,18 @@
+/*
+* File: camera.h
+* Author: Simon Olesen
+* Date: 2025-05-13
+* Description: This program defines useful functions to a camera object
+               and handles keyboard and mouse movement
+*/
+
 #ifndef CAMERA_H
 #define CAMERA_H
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+// Enum for consistent movement directions regardless of input system
 enum CameraMovement
 {
     forward,
@@ -15,6 +24,13 @@ enum CameraMovement
 class Camera
 {
 public:
+    /*
+    * Constructor to initialize the camera with a position and an up vector
+    * Parameters:
+    * - position: Initial position of the camera in world space
+    * - up: World up direction (usually Y-axis)
+    * Returns: Camera object
+    */
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f))
         : m_position{ position }
         , m_worldUp{ up }
@@ -24,6 +40,7 @@ public:
 
     glm::mat4 getViewMatrix() const
     {
+        // Camera looks from position toward the direction it's facing
         return glm::lookAt(m_position, m_position + m_front, m_up);
     }
 
@@ -37,6 +54,14 @@ public:
         return m_front;
     }
 
+    /*
+    * Process keyboard movement consistantly across different devices
+    * Parameters:
+    * - direction: Enum for consistent movement directions
+    * - deltaTime: Float for consistent movement across different devices
+                   so you don't move faster or slower depending on your hardware
+    * Returns: The position in which the camera should be located next frame
+    */
     void processKeyboard(CameraMovement direction, float deltaTime)
     {
         float cameraSpeed = m_movementSpeed * deltaTime;
@@ -51,11 +76,18 @@ public:
         if (direction == left)
             moveDirection -= m_right;
 
-        moveDirection.y = 0.0f;
+        moveDirection.y = 0.0f; // Prevent camera from moving vertically
 
         m_position += glm::normalize(moveDirection) * cameraSpeed;
     }
 
+    /*
+    * Process mouse movement
+    * Parameters:
+    * - xoffset: Float for how much the mouse has moved in x-direction since last frame
+    * - yoffset: Float for how much the mouse has moved in y-direction since last frame
+    * Returns: The angle the camera should be looking at in the next frame
+    */
     void processMouseMovement(float xoffset, float yoffset)
     {
         xoffset *= m_sensitivity;
@@ -64,6 +96,7 @@ public:
         m_yaw += xoffset;
         m_pitch += yoffset;
 
+        // Clamp pitch to avoid screen flipping
         if (m_pitch > 89.0f)
             m_pitch = 89.0f;
         if (m_pitch < -89.0f)
@@ -72,6 +105,11 @@ public:
         updateCameraVectors();
     }
 
+    /*
+    * Initiates a jump by setting vertical velocity
+    * Parameters: None
+    * Returns: void
+    */
     void jump()
     {
         if (!m_isJumping) {
@@ -80,6 +118,12 @@ public:
         }
     }
 
+    /*
+    * Updates jump state and position over time
+    * Parameters:
+    * - deltaTime: Time elapsed since last frame
+    * Returns: void
+    */
     void updateJump(float deltaTime)
     {
         if (m_isJumping) {
@@ -113,6 +157,11 @@ private:
     const float m_gravity{ -9.81f };
     const float m_jumpStrength{ 5.0f };
 
+    /*
+    * Recalculates camera direction vectors from current yaw and pitch
+    * Parameters: None
+    * Returns: void
+    */
     void updateCameraVectors()
     {
         glm::vec3 direction{};

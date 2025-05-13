@@ -13,7 +13,11 @@ uniform mat4 projection;
 
 void main()
 {
+    // Compute world space position of the vertex
     FragPos = vec3(model * vec4(aPos, 1.0));
+
+    // Properly transform the normal vector with inverse transpose of model matrix 
+    // and is mostly needed for curves and inclines to display lighting properly
     Normal = mat3(transpose(inverse(model))) * aNormal;  
     TexCoords = aTexCoords;
     
